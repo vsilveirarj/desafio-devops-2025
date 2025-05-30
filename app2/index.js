@@ -1,3 +1,5 @@
+require('./tracing');
+
 const express = require('express');
 const redis = require('redis');
 const app = express();
@@ -19,7 +21,7 @@ app.get('/time', async (req, res) => {
         return res.json({ time: cached });
     }
     const currentTime = new Date().toISOString();
-    await client.setEx(cacheKey, 60, currentTime); // Cache 60 segundos
+    await client.setEx(cacheKey, 60, currentTime);
     res.json({ time: currentTime });
 });
 

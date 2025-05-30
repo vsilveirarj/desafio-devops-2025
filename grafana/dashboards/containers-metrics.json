@@ -1,0 +1,93 @@
+{
+  "id": null,
+  "uid": "docker-containers",
+  "title": "Docker Containers Monitoring",
+  "timezone": "browser",
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "CPU Usage (%)",
+      "id": 1,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_project=~\".+\", container!=\"\"}[1m]) * 100",
+          "legendFormat": "{{container}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        { "format": "percent", "label": "CPU", "logBase": 1, "min": 0, "show": true },
+        { "show": true }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Memory Usage (MB)",
+      "id": 2,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "container_memory_usage_bytes{container_label_com_docker_compose_project=~\".+\", container!=\"\"} / 1024 / 1024",
+          "legendFormat": "{{container}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        { "format": "megabytes", "label": "Memory", "logBase": 1, "show": true },
+        { "show": true }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Network IO (Bytes)",
+      "id": 3,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(container_network_receive_bytes_total{container_label_com_docker_compose_project=~\".+\", container!=\"\"}[1m])",
+          "legendFormat": "{{container}} - RX",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(container_network_transmit_bytes_total{container_label_com_docker_compose_project=~\".+\", container!=\"\"}[1m])",
+          "legendFormat": "{{container}} - TX",
+          "refId": "B"
+        }
+      ],
+      "yaxes": [
+        { "format": "bytes", "label": "Network", "logBase": 1, "show": true },
+        { "show": true }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Uptime",
+      "id": 4,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "time() - container_last_seen{container_label_com_docker_compose_project=~\".+\", container!=\"\"}",
+          "legendFormat": "{{container}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "orientation": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  }
+}

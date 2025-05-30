@@ -1,4 +1,4 @@
-version: "3.9"
+#version: "3.9"
 
 services:
   app1:
@@ -35,3 +35,29 @@ services:
     image: grafana/grafana
     ports:
       - "3001:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  loki:
+    image: grafana/loki:3.4.1
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-data:/var/loki
+      - ./loki.yml:/etc/loki.yml
+    command: ["-config.file=/etc/loki.yml"]
+
+
+  tempo:
+    image: grafana/tempo:2.4.1
+    ports:
+      - "3200:3200"
+      - "4318:4318"   # OTLP HTTP traces
+    volumes:
+      - ./tempo-data:/var/tempo/traces
+      - ./tempo.yml:/etc/tempo.yml
+    command: ["-config.file=/etc/tempo.yml"]
