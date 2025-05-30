@@ -97,6 +97,8 @@ O ambiente é completamente orquestrado via Docker Compose, com provisionamento 
 1. **Clone o repositório:**
 
 ```bash
-# ou via HTTPS
+#via HTTPS
 git clone https://github.com/vsilveirarj/desafio-devops-2025.git
 
+#Comandos para subir o ambiente:
+docker-compose up -d
