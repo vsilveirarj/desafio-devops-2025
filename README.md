@@ -100,5 +100,11 @@ O ambiente é completamente orquestrado via Docker Compose, com provisionamento 
 #via HTTPS
 git clone https://github.com/vsilveirarj/desafio-devops-2025.git
 
+#Entre na pasta
+cd desafio-devops-2025
+
 #Comandos para subir o ambiente:
 docker-compose up -d
+
+#Comandos para excluir o ambiente:
+docker-compose down -v 
