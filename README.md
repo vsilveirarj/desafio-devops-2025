@@ -32,13 +32,6 @@ O ambiente é completamente orquestrado via Docker Compose, com provisionamento 
 - Docker
 - Docker Compose
 
-### Comandos para subir o ambiente:
-
-```bash
-docker-compose up -d
-
----
-
 ## Endpoints das Aplicações
 
 | Serviço | Endpoint                  | Função                            |
@@ -99,10 +92,11 @@ docker-compose up -d
 
 ---
 
-## ⬇️ Passos para Baixar e Executar o Projeto via GitHub
+## Passos para Baixar e Executar o Projeto via GitHub
 
-1. ✅ **Clone o repositório:**
+1. **Clone o repositório:**
 
 ```bash
 # ou via HTTPS
 git clone https://github.com/vsilveirarj/desafio-devops-2025.git
+
